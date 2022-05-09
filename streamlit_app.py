@@ -86,12 +86,23 @@ if streamlit.button('Get Fruit Load List'):
 
 
 
-# new text entry box
-streamlit.header(' new text entry box')
-fruit_add = streamlit.text_input('What fruit would You like to add?', 'Kiwi')
-streamlit.write('Thanks for adding', fruit_add)
+# allow the end user to add a fruit to the list
+def insert_row_snowflake(new_fruit):
+    with my_cnx.cursor() as my_cur:
+        my_cur.execute("insert into fruit_load_list values('from streamlit')")
+        return "thanks for adding"+new_fruit
+fruit_add = streamlit.text_input('What fruit would You like to add?')
+if streamlit.button('Add a fruit to the List'):
+     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+     back_from_function = insert_row_snowflake(fruit_add)
+     streamlit.text(back_from_function)
+    
 
-my_cur.execute("insert into fruit_load_list values('from streamlit')")
-import requests
+#streamlit.header(' new text entry box')
+#fruit_add = streamlit.text_input('What fruit would You like to add?', 'Kiwi')
+#streamlit.write('Thanks for adding', fruit_add)
+
+#my_cur.execute("insert into fruit_load_list values('from streamlit')")
+#import requests
 #fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_add)
 #streamlit.text(fruityvice_response.json()) # just writes the data to the screen
