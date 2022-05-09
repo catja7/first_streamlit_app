@@ -49,6 +49,8 @@ streamlit.dataframe(my_data_rows)
 streamlit.header(' new text entry box')
 fruit_add = streamlit.text_input('What fruit would You like to add?', 'Kiwi')
 streamlit.write('Thanks for adding', fruit_add)
+
+my_cur.execute("insert into fruit_load_list values('from streamlit')")
 import requests
 #fruityvice_response = requests.get("https://fruityvice.com/api/fruit/"+fruit_add)
 #streamlit.text(fruityvice_response.json()) # just writes the data to the screen
